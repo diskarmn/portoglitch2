@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            transition: .3s;
+        }
+
+        #container {
+            display: grid;
+            grid-template-areas:
+                "home"
+                "profile"
+                "projek"
+                "kontak"
+                "footer";
+            grid-template-columns: 1fr;
+            grid-template-rows: .5fr .3fr 1fr .3fr .3fr;
+            height: max-content;
+            /* Agar container mencakup seluruh viewport height */
+            min-height: max-content;
+        }
+
+        .nav {
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 30px;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+
+        }
+
+        .nav h1 {
+            color: #dd6363;
+            font-weight: bold;
+        }
+
+        .nav a {
+            /* outline: 1px solid black; */
+            width: max-content;
+            height: max-content;
+            padding: 0 3px;
+        }
+
+        #tampil {
+            position: fixed;
+            outline: 1px solid #dd6363;
+            top: 5px;
+            right: 5px;
+            background-color: white;
+            border-radius: 5px;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            height: max-content;
+            padding: 5px;
+            opacity: 0;
+            z-index: -9;
+        }
+
+        #tampil:target {
+            opacity: 1;
+            z-index: 9;
+        }
+
+        #tampil a {
+            text-decoration: none;
+            color: #dd6363;
+            font-weight: bold;
+            padding: 2px;
+            font-size: 200%;
+        }
+
+        #tampil a:hover {
+            text-decoration: underline;
+            color: #b62626;
+        }
+
+        .custom-loader {
+            width: 100px;
+            margin: 3px;
+            height: 20px;
+            background:
+                linear-gradient(90deg, #0000, #dd6363) left -50px top 0/50px 20px no-repeat #E4E4ED;
+            animation: ct2 1s infinite linear;
+        }
+
+        @keyframes ct2 {
+            100% {
+                background-position: right -50px top 0;
+            }
+        }
+
+        #home {
+            grid-area: home;
+            background-color: #dd6363;
+            color: white;
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            padding: 200px;
+            background: linear-gradient(90deg, rgba(219, 86, 86, 0.021) 33%, rgba(255, 249, 249, 0.11) 50%, rgba(211, 90, 90, 0) 66%) #dd6363;
+            background-size: 300% 100%;
+            animation: ct1 1s infinite linear;
+        }
+
+        .poto {
+            width: 500px;
+            border-radius: 50%;
+            margin-bottom: 50px;
+        }
+
+        #home h1 {
+            font-size: 400%;
+            font-weight: bold;
+        }
+
+        #home hr {
+            height: 10px;
+            color: white;
+        }
+
+        #profile {
+            grid-area: profile;
+            background-color: rgb(240, 240, 240);
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding: 100px;
+        }
+
+        #profile ul {
+            width: 100%;
+            /* outline: 1px solid red; */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(700px, 1fr));
+            /* Maksimal 5 kolom */
+            grid-gap: 10px;
+            /* Jarak antar elemen */
+            list-style: none;
+            padding: 0;
+        }
+
+        #profile ul li {
+            padding: 10px;
+            text-align: center;
+            box-shadow: inset 0 0 40px white;
+            line-height: center;
+        }
+
+        #profile ul li::before {
+            content: "\2605";
+            /* Kode Unicode untuk karakter bintang */
+            margin-right: 5px;
+            /* Jarak antara bintang dan teks */
+        }
+
+        #profile h1 {
+            font-size: 400%;
+            font-weight: bold;
+        }
+
+        #profile h2 {
+            margin-top: 30px;
+            font-size: 250%;
+            text-decoration: underline;
+        }
+
+        #profile p,
+        #profile ul li {
+            margin: 50px 100px;
+            /* outline: 1px solid red; */
+            font-size: 200%;
+            text-align: center;
+        }
+
+        #profile a {
+            font-size: 200%;
+            text-decoration: none;
+            color: white;
+            background-color: #dd6363;
+            border-radius: 10px;
+            padding: 10px 20px;
+        }
+
+        #profile a:hover {
+            background-color: transparent;
+            color: black;
+            outline: 2px solid #dd6363;
+        }
+
+        #projek {
+            grid-area: projek;
+            background-color: #dd6363;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding: 100px 100px;
+
+
+        }
+
+        #projek h1 {
+            font-size: 400%;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .isiprojek {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 800px);
+            grid-gap: 30px;
+            /* outline: 1px solid white; */
+            width: 100%;
+
+
+        }
+
+        .kotak {
+            outline: 3px solid white;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding: 25px 0;
+            border-radius: 20px;
+            background:
+                linear-gradient(90deg, #0001 33%, #0005 50%, #0001 66%) #dd6363;
+            background-size: 300% 100%;
+            animation: ct1 1s infinite linear;
+        }
+
+        @keyframes ct1 {
+            0% {
+                background-position: right
+            }
+        }
+
+        .kotak a {
+            background-color: white;
+            color: #b62626;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 200%;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .kotak a:hover {
+            background-color: transparent;
+            outline: 1px solid white;
+            color: white;
+        }
+
+        .kotak img {
+            width: 750px;
+        }
+
+        #kontak {
+            grid-area: kontak;
+
+        }
+
+        #kontak div {
+            font-size: 120%;
+        }
+
+        /* nn 
+        a
+        
+        d*/
+        .kontak {
+
+            padding-top: 30px;
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            background-color: #E4E4ED;
+        }
+
+        .kontak h2 {
+            font-size: 400%;
+            font-weight: bold;
+            color: black;
+            align-self: center;
+            margin-bottom: 100px;
+        }
+
+        .kontak h1 {
+            align-self: center;
+            justify-self: center;
+            font-size: 130%;
+            padding: 10px;
+        }
+
+        .isikontak {
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+        }
+
+        .kontakkiri {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .kontak1 {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .klogo {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #b62626;
+            border-radius: 50%;
+            color: white;
+
+        }
+
+        .sebelahlogo {
+            padding-left: 10px;
+        }
+
+        .sebelahlogo h1 {
+            font-weight: normal;
+            font-size: 120%;
+        }
+
+        .sebelahlogo p {
+            font-size: 90%;
+        }
+
+        .kontakkanan {
+            display: flex;
+            align-items: center;
+
+            width: 40%;
+        }
+
+        .kontakkanan form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .kontakkanan form input[type=text] {
+            padding: 5px;
+            background-color: white;
+            border-radius: 2px;
+            margin: 10px 0;
+            width: 95%;
+            align-self: center;
+        }
+
+        .kontakkanan form input[type=email] {
+            padding: 5px;
+            background-color: white;
+            border-radius: 2px;
+            margin: 10px 0;
+            width: 95%;
+            align-self: center;
+        }
+
+        .kontakkanan form textarea {
+            padding: 5px;
+            background-color: white;
+            border-radius: 2px;
+            margin: 10px 0;
+            width: 95%;
+            align-self: center;
+        }
+
+        .kontakkanan form input[type=submit] {
+            padding: 5px;
+            background-color: #b62626;
+            border-radius: 5px;
+            margin: 10px 0;
+            color: white;
+        }
+
+        .footer {
+            grid-area: footer;
+            background-color: black;
+            color: white;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            font-size: 150%;
+
+        }
+
+
+        @media (max-width: 768px) {
+            #profile ul {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                /* Maksimal 2 kolom */
+            }
+            #tampil a{
+                font-size: 150%;
+            }
+            .custom-loader {
+                width: 50px;
+                margin: 3px;
+                height: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div class="nav">
+            <h1>PORTOPOLIO</h1>
+            <a href="#tampil">
+                <div class="custom-loader"></div>
+                <div class="custom-loader"></div>
+                <div class="custom-loader"></div>
+            </a>
+            <div id="tampil">
+                <a href="#home">HOME</a>
+                <a href="#profile">PROFILE</a>
+                <a href="#projek">PROJEK</a>
+                <a href="#kontak">ABOUT</a>
+            </div>
+        </div>
+        <div id="home">
+            <div class="text-center">
+                <img src="{{ url_for('static', filename='p.jpeg') }}" class="poto">
+                <h1>Diska Romandoni</h1>
+                <hr>
+                <h1>Web Developer</h1>
+            </div>
+        </div>
+        <div id="profile">
+            <h1>Profil</h1>
+            <h2>IT Background</h2>
+            <p>Saya bercita cita menjadi seorang web developer handal,
+                memiliki keinginan untuk mengetahui hal baru,
+                waktu saya awal belajar tentang web saya suka bermain main dengan css
+                dengan membuat beberapa fitur unik yang saya post lewat instagram.
+            </p>
+            <p style="font-weight:bold;">
+                Skill:
+            </p>
+            <ul>
+                <li>styling css yang baik</li>
+                <li>javascript</li>
+                <li>jquery dan DOM</li>
+                <li>ajax</li>
+                <li>responsiv web</li>
+                <li>manajemen waktu</li>
+                <li>problem solving</li>
+                <li>kerja sama tim</li>
+
+            </ul>
+            <a href="https://www.instagram.com/ro.lunastra/">Lihat Instagram</a>
+        </div>
+        <div id="projek">
+            <h1>Projek</h1>
+            <div class="isiprojek">
+                <div class="kotak">
+                    <img src="{{ url_for('static', filename='ig.jpeg') }}">
+                    <a href="https://www.instagram.com/ro.lunastra/">post css di instagram</a>
+                </div>
+                <div class="kotak">
+                    <img src="{{ url_for('static', filename='cv.jpeg') }}">
+                    <a href="https://diskarmn.github.io/cssmanual/">cv css manual</a>
+                </div>
+                <div class="kotak">
+                    <img src="{{ url_for('static', filename='mia.png') }}">
+                    <a href="https://diskarmn.github.io/diskamadeinabyss.github.io/">made in abyss</a>
+                </div>
+                <div class="kotak">
+                    <img src="{{ url_for('static', filename='ss2.png') }}">
+                    <a href="https://diskarmn.github.io/displayscroll.github.io/">display scroll</a>
+                </div>
+
+            </div>
+        </div>
+        <div id="kontak" class="kontak">
+            <h2>Kontak</h2>
+            <div class="isikontak">
+                <div class="kontakkiri">
+                    <div class="kontak1">
+                        <div class="klogo">
+                            E
+                        </div>
+                        <div class="sebelahlogo">
+                            <h1>Email</h1>
+                            <p>diskarmn@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="kontak1">
+                        <div class="klogo">
+                            T
+                        </div>
+                        <div class="sebelahlogo">
+                            <h1>Telephone</h1>
+                            <p>081284013044</p>
+                        </div>
+                    </div>
+                    <div class="kontak1">
+                        <div class="klogo">
+                            A
+                        </div>
+                        <div class="sebelahlogo">
+                            <h1>Address</h1>
+                            <p>Yogyakarta, Indonesia</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="kontakkanan">
+                    <form>
+                        <input type="text" id="name" name="name" placeholder="Masukkan Nama" required>
+                        <input type="email" id="email" name="email" placeholder="Masukkan Email" required>
+                        <textarea id="comment" name="comment" placeholder="Masukkan Komentar" required></textarea>
+                        <input type="submit" value="Kirim Pesan">
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+
+            @Footer
+        </div>
+    </div>
+</body>
+
+</html>
